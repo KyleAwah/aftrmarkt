@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> AFTR_MARKT : Accessories </title>
+		<link rel="icon" href="/Icons/tab.png">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename ='mystyle1.css')}}"/>
+    <script src="{{ url_for('static', filename ='javascript1.js')}}"></script>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<script>
+		/* JQUERY FOR MOBILE MENU BAR */
+
+		$(document).ready(function(){
+    	$(".mobile_nav").on("click", function(){
+        $("header nav ul").toggleClass("open");
+        $("li.nav_bar_element").toggleClass("open");
+        $(".final_icons").toggleClass("open");
+        $("#desktop_nav").remove();
+    	});
+		});
+
+		//refresh page on browser resize
+		$(window).bind('resize', function(e)
+		{
+  		this.location.reload(false); /* false to get page from cache */
+		});
+
+		$(document).ready(function(){
+     if ($(window).width() > 900){
+         $("#mobile_nav").remove();
+         $("").remove();
+         $("#desktop_nav").append(`
+            <a href="/index">
+                <img src="/Icons/logo_clear.png" height="25" alt="HOME PAGE" onclick="/" />
+            </a>
+        `);
+     	} 
+		});
+		</script>
+
+		{% if session['ShoppingCart']|length > 0 %}
+		<script>
+		$(document).ready(function(){
+     		if ($(window).width() < 900){
+         	$("#mobile_nav").append(`<img src="/Icons/logo_clear.png" height="45" alt="HOME PAGE"/>`);
+         	$("#Mobile_Cart_Text").append(" - CART");
+     		} 
+			});
+		</script>
+		{% endif %}
+
+		{% if session['ShoppingCart']|length == 0 %}
+		<script>
+		$(document).ready(function(){
+     		if ($(window).width() < 900){
+         	$("#mobile_nav").append(`<img src="/Icons/logo_clear.png" height="45" alt="HOME PAGE"/>`);
+         	$("#Mobile_Cart_Text").append("CART");
+     		} 
+			});
+		</script>
+		{% endif %}
+
+		{% if current_user.is_authenticated == False %}
+			<script> 
+				$(document).ready(function(){
+           if ($(window).width() < 900){
+				      $("#Mobile_Status_Text").append("PROFILE");
+           } 
+        });
+			</script>
+		{% endif %}
+		{% if current_user.is_authenticated %}
+    	<script> 
+				$(document).ready(function(){
+     			if ($(window).width() < 900){
+						$("#Mobile_Status_Text").append("{{ current_user.username }}");
+     			} 
+				});
+			</script>      
+		{% endif %}
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+</head>
+
+
+
+<body id="Accessories">
+    <script>
+        // AFTR_MARKT
+        // Hype Culture, Reinvented
+        //
+        //
+        // Designed by: Kyle Awah (816012635),  Avita John (816012533), Riandra Maraj (81601097), Kyle Sukhdeo  - (816014143)
+        //
+        // Created on: 23/3/2020
+        // INFO 2602 (Web Programming and Technologies 1)
+        // Group Project - Storefront
+    </script>
+
+
+    <!-- NAVIGATION TABS -->
+
+		<header>
+    <div class="nav" id="navbar">
+			<nav>
+				<a class="mobile_nav" id="mobile_nav"> 
+    
+        </a>
+        <ul class="nav_bar_element">
+            <li id="desktop_nav" class="nav_bar_element">
+                        
+            </li>
+            <li class="nav_bar_element">
+                <a href="/discover">
+                    <img src="Icons/featured.png" height="15" alt="DISCOVER" />
+                    DISCOVER
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/tees">
+                    <img src="Icons/tees.png" height="15" alt="TEES" />
+                    TEES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/jackets">
+                    <img src="Icons/jackets.png" height="15" alt="JACKETS" />
+                    JACKETS
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/pants">
+                    <img src="Icons/pants.png" height="15" alt="PANTS" />
+                    PANTS
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/shoes">
+                    <img src="Icons/shoes.png" height="15" alt="SHOES" />
+                    SHOES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a class="active" href="/accessories">
+                    <img src="Icons/accessories.png" height="15" alt="ACCESSORIES" />
+                    ACCESSORIES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/cart" id="Mobile_Cart_Text">
+                    <img src="Icons/shopping_cart.png" alt="CART" class="final_icons"/>
+										{% if session['ShoppingCart']|length > 0 %}
+											{{session['ShoppingCart']|length}}
+										{% endif %}
+                </a>
+            </li>
+            <li class="nav_bar_element">
+							{% if current_user.is_authenticated == False %}
+                <a href="/login" id="Mobile_Status_Text">
+                    <img id="PROFILE_STATUS" src="Icons/profile.png" alt="Profile" class="final_icons"/>
+                </a>
+							{% endif %}
+
+							{% if current_user.is_authenticated %}
+                <a href="/profile" id="Mobile_Status_Text">
+                    <img id="PROFILE_STATUS" src="Icons/logged_in.png" alt="Profile" class="final_icons"/>
+                </a>
+							{% endif %}
+            </li>
+        </ul>
+			</nav>
+    </div>
+		</header>
+
+    <div class="Page_Heading">
+        <h1> ACCESSORIES </h1>
+    </div>
+
+		<ul class="CART_ITMES">
+       {% for row in products %}
+			 <li class="mini_card" onclick="window.location = '/accessories/{{row.id}}' ">
+            <img src="/Images/Placeholder_Square.png" alt="AN OBJECT TO BE SOLD" class="cart_image"/>
+            <h4 class="mini_card_desc"> ${{row.price}} </h4>
+        </li>
+				{% endfor %}
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> AFTR_MARKT </title>
+		<link rel="icon" href="/Icons/tab.png">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename ='mystyle1.css')}}"/>
+    <script src="{{ url_for('static', filename ='javascript1.js')}}"></script>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<script>
+		/* JQUERY FOR MOBILE MENU BAR */
+
+		$(document).ready(function(){
+    	$(".mobile_nav").on("click", function(){
+        $("header nav ul").toggleClass("open");
+        $("li.nav_bar_element").toggleClass("open");
+        $(".final_icons").toggleClass("open");
+        $("#desktop_nav").remove();
+    	});
+		});
+
+		//refresh page on browser resize
+		$(window).bind('resize', function(e)
+		{
+  		this.location.reload(false); /* false to get page from cache */
+		});
+
+		$(document).ready(function(){
+     if ($(window).width() > 900){
+         $("#mobile_nav").remove();
+         $("").remove();
+         $("#desktop_nav").append(`
+            <a href="/index">
+                <img src="/Icons/logo_clear.png" height="25" alt="HOME PAGE" onclick="/" />
+            </a>
+        `);
+     	} 
+		});
+		</script>
+
+		{% if session['ShoppingCart']|length > 0 %}
+		<script>
+		$(document).ready(function(){
+     		if ($(window).width() < 900){
+         	$("#mobile_nav").append(`<img src="/Icons/logo_clear.png" height="45" alt="HOME PAGE"/>`);
+         	$("#Mobile_Cart_Text").append(" - CART");
+     		} 
+			});
+		</script>
+		{% endif %}
+
+		{% if session['ShoppingCart']|length == 0 %}
+		<script>
+		$(document).ready(function(){
+     		if ($(window).width() < 900){
+         	$("#mobile_nav").append(`<img src="/Icons/logo_clear.png" height="45" alt="HOME PAGE"/>`);
+         	$("#Mobile_Cart_Text").append("CART");
+     		} 
+			});
+		</script>
+		{% endif %}
+
+		{% if current_user.is_authenticated == False %}
+			<script> 
+				$(document).ready(function(){
+           if ($(window).width() < 900){
+				      $("#Mobile_Status_Text").append("PROFILE");
+           } 
+        });
+			</script>
+		{% endif %}
+		{% if current_user.is_authenticated %}
+    	<script> 
+				$(document).ready(function(){
+     			if ($(window).width() < 900){
+						$("#Mobile_Status_Text").append("{{ current_user.username }}");
+     			} 
+				});
+			</script>      
+		{% endif %}
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+</head>
+
+
+
+<body id="HOMEPAGE">
+     <script>
+        // AFTR_MARKT
+        // Hype Culture, Reinvented
+        //
+        //
+        // Designed by: Kyle Awah (816012635),  Avita John (816012533), Riandra Maraj (81601097), Kyle Sukhdeo  - (816014143)
+        //
+        // Created on: 23/3/2020
+        // INFO 2602 (Web Programming and Technologies 1)
+        // Group Project - Storefront
+    </script>
+
+
+     <!-- NAVIGATION TABS -->
+
+		<header>
+    <div class="nav" id="navbar">
+			<nav>
+				<a class="mobile_nav" id="mobile_nav"> 
+    
+        </a>
+        <ul class="nav_bar_element">
+            <li id="desktop_nav" class="nav_bar_element">
+                        
+            </li>
+            <li class="nav_bar_element">
+                <a href="/discover">
+                    <img src="Icons/featured.png" height="15" alt="DISCOVER" />
+                    DISCOVER
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/tees">
+                    <img src="Icons/tees.png" height="15" alt="TEES" />
+                    TEES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/jackets">
+                    <img src="Icons/jackets.png" height="15" alt="JACKETS" />
+                    JACKETS
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/pants">
+                    <img src="Icons/pants.png" height="15" alt="PANTS" />
+                    PANTS
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/shoes">
+                    <img src="Icons/shoes.png" height="15" alt="SHOES" />
+                    SHOES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/accessories">
+                    <img src="Icons/accessories.png" height="15" alt="ACCESSORIES" />
+                    ACCESSORIES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/cart" id="Mobile_Cart_Text">
+                    <img src="Icons/shopping_cart.png" class="final_icons"  alt="CART" />
+										{% if session['ShoppingCart']|length > 0 %}
+											{{session['ShoppingCart']|length}}
+										{% endif %}
+                </a>
+            </li>
+            <li class="nav_bar_element">
+							{% if current_user.is_authenticated == False %}
+                <a href="/login" id="Mobile_Status_Text">
+                    <img id="PROFILE_STATUS" src="Icons/profile.png" class="final_icons"  alt="Profile" />
+                </a>
+							{% endif %}
+
+							{% if current_user.is_authenticated %}
+                <a href="/profile" id="Mobile_Status_Text">
+                    <img id="PROFILE_STATUS" src="Icons/logged_in.png" class="final_icons"  alt="Profile" />
+                </a>
+							{% endif %}
+            </li>
+        </ul>
+			</nav>
+    </div>
+		</header>
+
+		  {% with messages = get_flashed_messages() %}
+  				{% if messages %}
+					<br>
+        		<div id="ALERT" class="alert_bad">
+        			{% for message in messages %}
+          			<span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+        				{{ message }}
+        			{% endfor %}
+        		</div>
+					<br>
+  				{% endif %}
+			{% endwith %}
+
+    <header class="v-header container">
+        <div class="fullscreen-video-wrap">
+            <img src="Images/aftr.jpg" alt="Main Home Image">
+        </div>
+        <div class="header-overlay"></div>
+    </header>
+		<br>
+
+    <div class="FEATURED_ITEM">
+        <h1 id="MAIN_TEXT">
+						THE INTERNET'S MOST ADVANCED AFTR_MARKT
+        </h1>
+    </div>
+
+		 <div class="homescreen_display">
+        <h1 class="mainhomescreentext"> DAILY DEALS </h1>
+        <div class="Card-Display">
+           
+            <div class="card" onclick="window.location='/tees/{{product_1.id}}'">
+                <img class="card_image" src="Images/Placeholder_Square.png" height="200px">
+                <h1 class="card_product_name"> {{product_1.name}} </h1>
+                <p class="card_product_desc"> {{product_1.desc}} 
+                </p>
+                <h4 class="card_price"> ${{product_1.price}} </h4>
+            </div>
+            
+						<div class="card" onclick="window.location='/jackets/{{product_2.id}}'">
+                <img class="card_image" src="Images/Placeholder_Square.png" height="200px">
+                <h1 class="card_product_name"> {{product_2.name}} </h1>
+                <p class="card_product_desc"> {{product_2.desc}} 
+                </p>
+                <h4 class="card_price"> ${{product_2.price}} </h4>
+            </div>
+
+						<div class="card" onclick="window.location='/pants/{{product_3.id}}'">
+                <img class="card_image" src="Images/Placeholder_Square.png" height="200px">
+                <h1 class="card_product_name"> {{product_3.name}} </h1>
+                <p class="card_product_desc"> {{product_3.desc}} 
+                </p>
+                <h4 class="card_price"> ${{product_3.price}} </h4>
+            </div>
+
+						<div class="card" onclick="window.location='/shoes/{{product_4.id}}'">
+                <img class="card_image" src="Images/Placeholder_Square.png" height="200px">
+                <h1 class="card_product_name"> {{product_4.name}} </h1>
+                <p class="card_product_desc"> {{product_4.desc}} 
+                </p>
+                <h4 class="card_price"> ${{product_4.price}} </h4>
+            </div>
+
+						<div class="card" onclick="window.location='/accessories/{{product_5.id}}'">
+                <img class="card_image" src="Images/Placeholder_Square.png" height="200px">
+                <h1 class="card_product_name"> {{product_5.name}} </h1>
+                <p class="card_product_desc"> {{product_5.desc}} 
+                </p>
+                <h4 class="card_price"> ${{product_5.price}} </h4>
+            </div>
+    
+        </div>
+    </div>
+
+    <div id="main">
+        <!-- This div is the height of the footer so everythign above it is the actual content of the main homepage -->
+    </div>
+		
+    <footer id="footer">
+        <h6>
+            AFTR_MARKT
+        </h6>
+        <p>
+            Kyle Awah (816012635) | Avita John (816012533) | Riandra Maraj (81601097) | Kyle Sukhdeo (816014143)
+				</p>
+        <p>
+            INFO 2602 - Group Project (KAR
+            <img src="Icons/KAR.png" height="25px">
+            )
+        </p>
+        <p> 24 / 04 / 2020 </p>
+    </footer>
+
+</body>
+</html>

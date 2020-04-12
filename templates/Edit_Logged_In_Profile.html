@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> AFTR_MARKT : Your Profile </title>
+    <link rel="icon" href="/Icons/tab.png">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename ='mystyle1.css')}}"/>
+    <script src="{{ url_for('static', filename ='javascript1.js')}}"></script>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<script>
+		/* JQUERY FOR MOBILE MENU BAR */
+
+		$(document).ready(function(){
+    	$(".mobile_nav").on("click", function(){
+        $("header nav ul").toggleClass("open");
+        $("li.nav_bar_element").toggleClass("open");
+        $(".final_icons").toggleClass("open");
+        $("#desktop_nav").remove();
+    	});
+		});
+
+		//refresh page on browser resize
+		$(window).bind('resize', function(e)
+		{
+  		this.location.reload(false); /* false to get page from cache */
+		});
+
+		$(document).ready(function(){
+     if ($(window).width() > 900){
+         $("#mobile_nav").remove();
+         $("").remove();
+         $("#desktop_nav").append(`
+            <a href="/index">
+                <img src="/Icons/logo_clear.png" height="25" alt="HOME PAGE" onclick="/" />
+            </a>
+        `);
+     	} 
+		});
+		</script>
+
+		{% if session['ShoppingCart']|length > 0 %}
+		<script>
+		$(document).ready(function(){
+     		if ($(window).width() < 900){
+         	$("#mobile_nav").append(`<img src="/Icons/logo_clear.png" height="45" alt="HOME PAGE"/>`);
+         	$("#Mobile_Cart_Text").append(" - CART");
+     		} 
+			});
+		</script>
+		{% endif %}
+
+		{% if session['ShoppingCart']|length == 0 %}
+		<script>
+		$(document).ready(function(){
+     		if ($(window).width() < 900){
+         	$("#mobile_nav").append(`<img src="/Icons/logo_clear.png" height="45" alt="HOME PAGE"/>`);
+         	$("#Mobile_Cart_Text").append("CART");
+     		} 
+			});
+		</script>
+		{% endif %}
+
+		{% if current_user.is_authenticated == False %}
+			<script> 
+				$(document).ready(function(){
+           if ($(window).width() < 900){
+				      $("#Mobile_Status_Text").append("PROFILE");
+           } 
+        });
+			</script>
+		{% endif %}
+		{% if current_user.is_authenticated %}
+    	<script> 
+				$(document).ready(function(){
+     			if ($(window).width() < 900){
+						$("#Mobile_Status_Text").append("{{ current_user.username }}");
+     			} 
+				});
+			</script>      
+		{% endif %}
+    <meta name="viewport" content="width=device-width , initial-scale=1">
+    <meta charset="UTF-8">
+</head>
+
+
+
+<body id="Your_Profile">
+     <script>
+        // AFTR_MARKT
+        // Hype Culture, Reinvented
+        //
+        //
+        // Designed by: Kyle Awah (816012635),  Avita John (816012533), Riandra Maraj (81601097), Kyle Sukhdeo  - (816014143)
+        //
+        // Created on: 23/3/2020
+        // INFO 2602 (Web Programming and Technologies 1)
+        // Group Project - Storefront
+    </script>
+
+
+    <!-- NAVIGATION TABS -->
+
+		<header>
+    <div class="nav" id="navbar">
+			<nav>
+				<a class="mobile_nav" id="mobile_nav"> 
+    
+        </a>
+        <ul class="nav_bar_element">
+            <li id="desktop_nav" class="nav_bar_element">
+                        
+            </li>
+            <li class="nav_bar_element">
+                <a href="/discover">
+                    <img src="/Icons/featured.png" height="15" alt="DISCOVER" />
+                    DISCOVER
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/tees">
+                    <img src="/Icons/tees.png" height="15" alt="TEES" />
+                    TEES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/jackets">
+                    <img src="/Icons/jackets.png" height="15" alt="JACKETS" />
+                    JACKETS
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/pants">
+                    <img src="/Icons/pants.png" height="15" alt="PANTS" />
+                    PANTS
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/shoes">
+                    <img src="/Icons/shoes.png" height="15" alt="SHOES" />
+                    SHOES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/accessories">
+                    <img src="/Icons/accessories.png" height="15" alt="ACCESSORIES" />
+                    ACCESSORIES
+                </a>
+            </li>
+            <li class="nav_bar_element">
+                <a href="/cart" id="Mobile_Cart_Text">
+                    <img src="/Icons/shopping_cart.png" class="final_icons"  alt="CART" />
+										{% if session['ShoppingCart']|length > 0 %}
+											{{session['ShoppingCart']|length}}
+										{% endif %}
+                </a>
+            </li>
+            <li class="nav_bar_element">
+							{% if current_user.is_authenticated == False %}
+                <a href="/login" id="Mobile_Status_Text">
+                    <img id="PROFILE_STATUS" src="/Icons/profile.png" class="final_icons"  alt="Profile" />
+                </a>
+							{% endif %}
+
+							{% if current_user.is_authenticated %}
+                <a class="active" href="/profile" id="Mobile_Status_Text">
+                    <img id="PROFILE_STATUS" src="/Icons/logged_in.png" class="final_icons"  alt="Profile" />
+                </a>
+							{% endif %}
+            </li>
+        </ul>
+			</nav>
+    </div>
+		</header>
+
+
+		{% with messages = get_flashed_messages() %}
+  				{% if messages %}
+					<br>
+        		<div id="ALERT" class="alert_bad">
+        			{% for message in messages %}
+          			<span class="closebtn" onclick="this.parentElement.style.display='none';"> &times; </span>
+        				{{ message }}
+        			{% endfor %}
+        		</div>
+					<br>
+  				{% endif %}
+			{% endwith %}
+
+
+		<div class="CART_ITMES">
+
+				<form action="/profile/edit" method="POST">
+
+        <div id="Logged_In_Profile">
+            <div id="ProfilePic">
+            <h3> EDITING : {{ current_user.username }}'s Profile </h3>
+        </div>
+        <br>
+        <h3> USER INFORMATION </h3>
+        <br>
+        <p id="FirstName_Logged_In"> Username: {{ current_user.username }} </p>
+				<p> 
+					{{ form.password.label }}
+					{{ form.password(size=20) }}
+				<p>
+        <br><br>
+      
+				<!--  <input type="file" name="pic" accept="image/*"> -->
+
+        <h3> CONTACT INFORMATION </h3>
+        <br>
+        <p id="Email_Logged_In"> Email: {{ current_user.email }} </p>
+				<p> 
+					{{ form.email.label }}
+					{{ form.email(size=20, class="validate") }}
+				<p>
+				<br>
+        <p id="Address_Logged_In"> Address: {{ current_user.shipping_address }} </p>
+				<p> 
+					{{ form.shipping_address.label }}
+					{{ form.shipping_address(size=20) }}
+				<p>
+        <br><br>
+
+        <h3> FINANCIAL INFORMATION </h3>
+        <br>
+        <p id="Credit_Card_Logged_In"> Card Type: {{ current_user.payment_method }} </p>
+				<p> 
+					{{ form.payment_method.label }}
+					{{ form.payment_method(size=20) }}
+				<p>
+				<br>
+        <p id="Credit_Card_Address_Logged_In"> Card Number:  {{ current_user.payment_method_card_number }} </p>
+				<p> 
+					{{ form.payment_method_card_number.label }}
+					{{ form.payment_method_card_number(size=20) }}
+				<p>
+				<br>
+
+				<div id="return_home">
+				{{form.submit}}
+				<br><br>
+        <button onclick="window.location='/profile'"> DISCARD CHANGES </button>
+
+				</form>
+
+				<br><br><br>
+
+				<div class="Signout">
+                <button class="Sign_Out">
+                    <a href=" {{ url_for('delete_account_ask') }}"> DELETE YOUR ACCOUNT </a>
+                </button>
+          </div>
+    </div>
+
+
+        </div>
+        <br><br><br><br>
+
+    </div>
+
+</body>
+</html>
