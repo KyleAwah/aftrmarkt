@@ -217,7 +217,7 @@ def logout():
 def delete_account_ask():
     return render_template('Delete_Profile_Ask.html')
 
-@app.route('/delete_account', methods=['DELETE'])
+@app.route('/delete_account', methods=['GET', 'DELETE'])
 @login_required
 def delete_account():
     this_user = user.query.get(current_user.id)
