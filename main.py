@@ -14,6 +14,7 @@
 #  - Paths For The Server
 
 import json
+from flask_cors import CORS
 from flask import Flask, request, render_template, flash, url_for, redirect, Markup, session
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta
@@ -35,6 +36,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///AFTR_MARKT_MAIN_DATABASE.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config['SECRET_KEY'] = "MYSECRET"
+    CORS(app)
     app.config['JWT_EXPIRATION_DELTA'] = timedelta(days = 7)
     login_manager.init_app(app)
     db.init_app(app)
