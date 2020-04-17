@@ -1,2 +1,2 @@
-# aftrmarkt
+# AFTR_MARKT
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/kylehalo/aftrmarkt.git) 
