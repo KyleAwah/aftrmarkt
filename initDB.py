@@ -1,12 +1,6 @@
-#  Created by KAR:
-#
 #  Kyle Awah     - (816012635)
-#  Avita John    - (816012533)
-#  Riandra Maraj - (816010975)
-#  Kyle Sukhdeo  - (816014143)
 #
 #  AFTR_MARKT
-#  (Group Project - Storefront)
 #  INFO 2602 - Web Programming and Technologies 1 
 #
 #  initDB.py contains:
