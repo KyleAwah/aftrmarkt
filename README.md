@@ -1,6 +1,11 @@
 # AFTR_MARKT
-###### Web Programming and Technologies 1 (INFO 2602) - Project
-###### Kyle Awah (816012635)
+<p>
+Kyle Awah (BSc. Hons)
+<br>
+Contact: kyawah@gmail.com
+<br><br>
+This programs covers the implimentation of a full stack python flask server
+</p>
 
 ###### View The Code On Gitpod:
 [![Gitpod View Me On Gitpod](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/kylehalo/aftrmarkt.git) 
